@@ -10,6 +10,7 @@ use rand::Rng;
 use rand::distributions::{WeightedIndex, Distribution};
 
 use crate::utils;
+use crate::utils::BoltzmannParams;
 
 
 use super::Genetic;
@@ -64,11 +65,19 @@ T: Genetic + Copy + Eq + Hash
         initial_population.clone()
     };
 
-    for _ in 0..params.rounds {
+    for i in 0..params.rounds {
 
         let mut rng = rand::thread_rng();
 
-        let dist = utils::sample_to_distribution(&population, fitness, cache);        
+        let boltzmann_params = BoltzmannParams {
+            t_coefficient: 1f64,
+            f_max: 1f64,
+            generation: i as f64,
+            max_generation: params.rounds as f64,
+        };
+
+
+        let dist = utils::boltzmann_selection(&population, boltzmann_params, fitness, cache);        
 
         let mut new_population: Vec<Rc<T>> = Vec::new();
 
