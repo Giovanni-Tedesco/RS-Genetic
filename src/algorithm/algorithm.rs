@@ -9,13 +9,14 @@ use std::rc::Rc;
 // use rand::Rng;
 use rand::distributions::{Distribution};
 
+use crate::distributions::standard_weighted::StandardWeighted;
 use crate::{abstractions::CustomDistribution};
 // use crate::utils::BoltzmannParams;
 
 use crate::distributions::boltzmann::Boltzmann;
 
 
-use super::Genetic;
+use super::super::Genetic;
 
 
 pub type GenHash<T> = HashMap<Rc<T>, f64>;
@@ -79,10 +80,16 @@ T: Genetic + Copy + Eq + Hash
             max_generation: params.rounds as f64,
         };
 
+        let std_weighted = StandardWeighted{
+            distribution: None
+        };
+
+        // let sampler= std_weighted.new(&population, fitness, cache);
+        // let dist = sampler.distribution.unwrap();
+
 
         // let dist = utils::boltzmann_selection(&population, boltzmann_params, fitness, cache);        
         let sampler = boltzmann_params.new(&population, fitness, cache);
-
         let dist = sampler.distribution.unwrap();
 
 

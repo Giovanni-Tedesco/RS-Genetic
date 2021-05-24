@@ -86,7 +86,7 @@ fn main() {
     println!("{:?}", recovered);
 
     let params: AlgorithmParams = AlgorithmParams{
-        rounds: 50,
+        rounds: 20,
         max_popuation: 10,
         mutation_rate: 0.05,
         co_factor: 0.05

@@ -1,16 +1,16 @@
 use std::rc::Rc;
-use crate::algorithm::GenHash;
+use crate::algorithm::algorithm::GenHash;
 
 use crate::abstractions::FitFunc;
 
 // Makes a template to create custom distributions
 // that conform to some standard
-pub trait CustomDistribution<T, R> {
+pub trait CustomDistribution<T> {
     // Samples from the distribution
     fn sample(&self) -> usize; 
 
     // Generate a new distribution
-    fn new(&self, population: &Vec<Rc<T>>, fitness: &FitFunc<T, R>
+    fn new(&self, population: &Vec<Rc<T>>, fitness: &FitFunc<T>
             , cache: &mut GenHash<T>) -> Self;
 
     // The probability density function

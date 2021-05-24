@@ -2,7 +2,9 @@ use std::{collections::{HashMap, hash_map::Entry}, rc::Rc};
 
 use rand::{distributions::WeightedIndex, prelude::Distribution};
 
-use crate::{Genetic, abstractions::CustomDistribution, algorithm::GenHash};
+use crate::{Genetic, abstractions::CustomDistribution};
+
+use crate::algorithm::algorithm::GenHash;
 
 use crate::abstractions::FitFunc;
 use std::hash::Hash;
@@ -16,7 +18,7 @@ pub struct Boltzmann {
     pub max_generation: f64
 }
 
-impl<T> CustomDistribution<T, f64> for Boltzmann 
+impl<T> CustomDistribution<T> for Boltzmann 
 where
     T: Hash + Eq + Genetic + Clone + Copy
 
@@ -28,8 +30,8 @@ where
         self.distribution.as_ref().unwrap().sample(&mut rng)
     }
 
-    fn new(&self, population: &Vec<std::rc::Rc<T>>, fitness: &FitFunc<T, f64>
-            , cache: &mut crate::algorithm::GenHash<T>) -> Self {
+    fn new(&self, population: &Vec<std::rc::Rc<T>>, fitness: &FitFunc<T>
+            , cache: &mut GenHash<T>) -> Self {
 
         
         let distribution = self.boltzmann_selection(population, fitness, cache);

@@ -12,7 +12,7 @@ use rand::distributions::WeightedIndex;
 use std::rc::Rc;
 
 
-use super::Genetic;
+use super::super::Genetic;
 
 
 pub fn sample_to_distribution<T>(

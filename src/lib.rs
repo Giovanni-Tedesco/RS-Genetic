@@ -3,7 +3,6 @@ extern crate bit_vec;
 
 mod genetic;
 mod algorithm;
-mod utils;
 mod distributions;
 mod abstractions;
 
@@ -13,8 +12,8 @@ pub type Chromosome = bit_vec::BitVec;
 
 pub use genetic::Genetic;
 
-pub use algorithm::AlgorithmParams;
-pub use algorithm::genetic_algorithm;
+pub use crate::algorithm::algorithm::AlgorithmParams;
+pub use crate::algorithm::algorithm::genetic_algorithm;
 
 #[cfg(test)]
 mod tests {
