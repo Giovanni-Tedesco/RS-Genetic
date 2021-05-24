@@ -1,16 +1,16 @@
-use std::collections::BTreeMap;
+// use std::collections::BTreeMap;
 
 use std::hash::Hash;
 use std::collections::HashMap;
 use std::rc::Rc;
-use std::cmp::Ordering;
+// use std::cmp::Ordering;
 
 
-use rand::Rng;
-use rand::distributions::{WeightedIndex, Distribution};
+// use rand::Rng;
+use rand::distributions::{Distribution};
 
-use crate::{abstractions::CustomDistribution, utils};
-use crate::utils::BoltzmannParams;
+use crate::{abstractions::CustomDistribution};
+// use crate::utils::BoltzmannParams;
 
 use crate::distributions::boltzmann::Boltzmann;
 
@@ -71,8 +71,6 @@ T: Genetic + Copy + Eq + Hash
 
         let mut rng = rand::thread_rng();
 
-        let items = [('a', 1)];
-
         let boltzmann_params = Boltzmann {
             distribution: None,
             t_coefficient: 1f64,
@@ -109,25 +107,5 @@ T: Genetic + Copy + Eq + Hash
     }
 
     return population;
-
-}
-
-
-fn sample_one<T>(initial_population: &Vec<T>, probabilities: &[f64]) -> T 
-where 
-T: Genetic + Copy 
-{
-    let mut rng = rand::thread_rng();
-
-    let fixed_point: f64 = rng.gen();
-    let mut p_total = 0.0;
-    let mut index = 0;
-
-    while p_total < fixed_point {
-        p_total += probabilities[index];
-        index += 1;
-    } 
-
-    return initial_population[index];
 
 }

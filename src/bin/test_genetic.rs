@@ -1,6 +1,6 @@
 use genetic::*;
 use std::{convert::TryInto};
-use rand::Rng;
+// use rand::Rng;
 
 use std::hash::Hash;
 
@@ -9,11 +9,11 @@ use std::rc::Rc;
 
 
 #[derive(Copy, Clone, Debug)]
-pub struct graph_representation {
+pub struct GraphRepresentation {
     x: f64
 }
 
-impl Genetic for graph_representation {
+impl Genetic for GraphRepresentation {
     const LENGTH: usize = 64;
 
     fn gene(&self) -> Chromosome {
@@ -37,32 +37,32 @@ impl Genetic for graph_representation {
         let new_x = u16::from_be_bytes(t.unwrap()) as f64 / (u16::MAX as f64);
 
 
-        return graph_representation{x: new_x};
+        return GraphRepresentation{x: new_x};
     }
 
     fn generate_random() -> Self {
         // let mut rng = rand::thread_rng();
-        graph_representation{x: 0.2}
+        GraphRepresentation{x: 0.2}
     }
 }
 
-impl Hash for graph_representation {
+impl Hash for GraphRepresentation {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
         self.gene().hash(state);
     }
 }
 
-impl PartialEq for graph_representation {
+impl PartialEq for GraphRepresentation {
     fn eq(&self, other: &Self) -> bool {
         self.gene() == other.gene()
     }
 }
 
-impl Eq for graph_representation {}
+impl Eq for GraphRepresentation {}
 
 
 
-pub fn fitness(gene: &graph_representation) -> f64 {
+pub fn fitness(gene: &GraphRepresentation) -> f64 {
     if gene.x > 1.0 || gene.x < 0.0 {
         return 0.001
     } else {
@@ -74,12 +74,12 @@ pub fn fitness(gene: &graph_representation) -> f64 {
 
 fn main() {
 
-    let x = graph_representation{
+    let x = GraphRepresentation{
         x: 0.02
     };
 
     let gene = x.gene();
-    let recovered = graph_representation::from_gene(&gene);
+    let recovered = GraphRepresentation::from_gene(&gene);
 
     println!("{:?}", x.clone());
     println!("{:?}", gene.clone());
@@ -93,9 +93,9 @@ fn main() {
     };
 
 
-    let mut cache: HashMap<Rc<graph_representation>, f64> = HashMap::new();
-    let v: Vec<Rc<graph_representation>> = Vec::new();
-    let fitness_func: Box<dyn Fn(&graph_representation) -> f64> = Box::new(fitness);
+    let mut cache: HashMap<Rc<GraphRepresentation>, f64> = HashMap::new();
+    let v: Vec<Rc<GraphRepresentation>> = Vec::new();
+    let fitness_func: Box<dyn Fn(&GraphRepresentation) -> f64> = Box::new(fitness);
 
     let mut ret = genetic_algorithm(&v, &params, &fitness_func, &mut cache);
 
