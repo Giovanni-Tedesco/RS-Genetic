@@ -9,8 +9,10 @@ use std::cmp::Ordering;
 use rand::Rng;
 use rand::distributions::{WeightedIndex, Distribution};
 
-use crate::utils;
+use crate::{abstractions::CustomDistribution, utils};
 use crate::utils::BoltzmannParams;
+
+use crate::distributions::boltzmann::Boltzmann;
 
 
 use super::Genetic;
@@ -69,7 +71,10 @@ T: Genetic + Copy + Eq + Hash
 
         let mut rng = rand::thread_rng();
 
-        let boltzmann_params = BoltzmannParams {
+        let items = [('a', 1)];
+
+        let boltzmann_params = Boltzmann {
+            distribution: None,
             t_coefficient: 1f64,
             f_max: 1f64,
             generation: i as f64,
@@ -77,7 +82,12 @@ T: Genetic + Copy + Eq + Hash
         };
 
 
-        let dist = utils::boltzmann_selection(&population, boltzmann_params, fitness, cache);        
+        // let dist = utils::boltzmann_selection(&population, boltzmann_params, fitness, cache);        
+        let sampler = boltzmann_params.new(&population, fitness, cache);
+
+        let dist = sampler.distribution.unwrap();
+
+
 
         let mut new_population: Vec<Rc<T>> = Vec::new();
 

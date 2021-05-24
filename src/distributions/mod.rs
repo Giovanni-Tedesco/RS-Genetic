@@ -1,1 +1,1 @@
-mod boltzmann;
+pub(crate) mod boltzmann;
