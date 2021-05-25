@@ -44,6 +44,16 @@ impl Genetic for GraphRepresentation {
         // let mut rng = rand::thread_rng();
         GraphRepresentation{x: 0.2}
     }
+
+    fn mutate(&self, other: &Self, params: &AlgorithmParams) -> (Self, Self) where Self: Sized {
+
+        let (child_1, child_2 )= self.cross_over(other, params.co_factor);
+
+        let mutated_child_1 = child_1.mutation(params.mutation_rate);
+        let mutated_child_2 = child_2.mutation(params.mutation_rate);
+
+        return (mutated_child_1, mutated_child_2);
+    }
 }
 
 impl Hash for GraphRepresentation {
@@ -89,7 +99,8 @@ fn main() {
         rounds: 20,
         max_popuation: 10,
         mutation_rate: 0.05,
-        co_factor: 0.05
+        co_factor: 0.05,
+        elitism: 2
     };
 
 

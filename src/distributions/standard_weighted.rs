@@ -8,7 +8,6 @@ use crate::abstractions::CustomDistribution;
 
 use std::hash::Hash;
 
-use crate::genetic::Genetic;
 use crate::abstractions::FitFunc;
 
 use crate::algorithm::algorithm::GenHash;
@@ -21,7 +20,7 @@ pub struct StandardWeighted {
 impl<T> CustomDistribution<T> for StandardWeighted 
 
 where
-    T: Eq + Hash + Genetic
+    T: Eq + Hash
 {
     fn sample(&self) -> usize {
         let mut rng = rand::thread_rng();
@@ -49,7 +48,7 @@ impl StandardWeighted {
         cache: &mut HashMap<Rc<T>, f64>
     ) -> f64
     where
-        T: Genetic + Hash + Eq
+        T: Hash + Eq
     {
         match cache.entry(item.clone()) {
             Entry::Vacant(entry) => *entry.insert(fitness(item)),

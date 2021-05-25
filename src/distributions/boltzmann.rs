@@ -2,13 +2,14 @@ use std::{collections::{HashMap, hash_map::Entry}, rc::Rc};
 
 use rand::{distributions::WeightedIndex, prelude::Distribution};
 
-use crate::{Genetic, abstractions::CustomDistribution};
+use crate::{abstractions::CustomDistribution};
 
 use crate::algorithm::algorithm::GenHash;
 
 use crate::abstractions::FitFunc;
 use std::hash::Hash;
 
+// use crate::Chromosome;
 // #[derive(Clone, Copy, Debug)]
 pub struct Boltzmann {
     pub distribution: Option<WeightedIndex<f64>>,
@@ -20,7 +21,7 @@ pub struct Boltzmann {
 
 impl<T> CustomDistribution<T> for Boltzmann 
 where
-    T: Hash + Eq + Genetic + Clone + Copy
+    T: Hash + Eq + Clone + Copy
 
 {
 
@@ -56,7 +57,7 @@ impl Boltzmann {
         cache: &mut GenHash<T>,
     ) -> WeightedIndex<f64> 
     where
-        T: Genetic + Hash + Eq
+        T: Hash + Eq
     {
         WeightedIndex::new(
             population
@@ -66,14 +67,14 @@ impl Boltzmann {
 
     }
 
-    fn boltzmann_fitnesses<T> (
+    pub fn boltzmann_fitnesses<T> (
         &self,
         item: &Rc<T>,
         fitness: &Box<dyn Fn(&T) -> f64>,
         cache: &mut HashMap<Rc<T>, f64>,
     ) -> f64 
     where
-        T: Genetic + Hash + Eq
+        T: Hash + Eq
 
     {
         match cache.entry(item.clone()) {

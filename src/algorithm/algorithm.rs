@@ -28,10 +28,12 @@ pub struct AlgorithmParams
     pub max_popuation: u64,
     pub mutation_rate: f64, 
     pub co_factor: f64, 
+    pub elitism: usize
 }
 
 
 
+// TODO: Implement elitism
 pub fn genetic_algorithm<T>(
     initial_population: &Vec<Rc<T>>,
     params: &AlgorithmParams,    
@@ -93,17 +95,17 @@ T: Genetic + Copy + Eq + Hash
         let dist = sampler.distribution.unwrap();
 
 
-
         let mut new_population: Vec<Rc<T>> = Vec::new();
 
         while new_population.len() < params.max_popuation as usize {
             let parent_1 = &population[dist.sample(&mut rng)];
             let parent_2 = &population[dist.sample(&mut rng)];
 
-            let (child_1, child_2 )= parent_1.cross_over(&parent_2, params.co_factor);
+            // let (child_1, child_2 )= parent_1.cross_over(&parent_2, params.co_factor);
 
-            let mutated_child_1 = child_1.mutation(params.mutation_rate);
-            let mutated_child_2 = child_2.mutation(params.mutation_rate);
+            // let mutated_child_1 = child_1.mutation(params.mutation_rate);
+            // let mutated_child_2 = child_2.mutation(params.mutation_rate);
+            let (mutated_child_1, mutated_child_2) = parent_1.mutate(parent_2, params);
 
             new_population.push(Rc::new(mutated_child_1));
             new_population.push(Rc::new(mutated_child_2));

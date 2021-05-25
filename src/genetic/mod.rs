@@ -1,7 +1,10 @@
+mod gen_custom;
+
+
 use rand::Rng;
 // use rand::distributions::{Distribution, Uniform};
 
-use crate::Chromosome;
+use crate::{AlgorithmParams, Chromosome};
 
 
 /// Produces genetic material for genetic algorithm
@@ -37,6 +40,9 @@ pub trait Genetic {
 
     }
 
+
+    fn mutate(&self, other: &Self, params: &AlgorithmParams) -> (Self, Self) where Self: Sized; 
+
     /// Crossover
     /// Gene 1 and Gene 2 assumed to be the same length
     // TODO: Check for duplicates
@@ -58,13 +64,14 @@ pub trait Genetic {
 
         }
 
-
         //Generate return genes
         let ret1 = Genetic::from_gene(&gene_1);
         let ret2 = Genetic::from_gene(&gene_2);
 
         return (ret1, ret2);
     }
+
+
 
     // TODO: Implement a reverse function
     fn reverse(&self) -> Self where Self: Sized {
