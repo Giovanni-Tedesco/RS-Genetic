@@ -1,4 +1,4 @@
-mod gen_custom;
+pub mod gen_custom;
 
 
 use rand::Rng;
