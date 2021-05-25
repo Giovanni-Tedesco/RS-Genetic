@@ -11,6 +11,8 @@ pub type Chromosome = bit_vec::BitVec;
 
 pub use genetic::Genetic;
 
+pub use genetic::gen_custom::GeneticCustom;
+
 pub use crate::algorithm::algorithm::AlgorithmParams;
 pub use crate::algorithm::algorithm::genetic_algorithm;
 
