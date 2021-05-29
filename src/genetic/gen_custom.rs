@@ -1,3 +1,5 @@
+use crate::AlgorithmParams;
+
 
 /// The idea for this is to have a general genetic structure that can
 /// be used for GA problems that cannot easily be represented as
@@ -12,5 +14,5 @@ pub trait GeneticCustom<Chromosome> {
 
     fn generate_random() -> Self;
 
-    fn mutate(&self, other: &Self) -> Self;
+    fn mutate(&self, other: &Self, params: &AlgorithmParams) -> Self;
 }
