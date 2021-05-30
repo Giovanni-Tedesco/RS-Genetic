@@ -53,13 +53,7 @@ T: GeneticCustom<Chromosome> + Copy + Eq + Hash
     */
 
 
-    let mut population = if initial_population.is_empty() {
-        let mut x: Vec<Rc<T>> = Vec::new();
-        x.push(Rc::new(GeneticCustom::generate_random()));
-        x
-    } else {
-        initial_population.clone()
-    };
+    let mut population = initial_population.clone();
 
     for i in 0..params.rounds {
 

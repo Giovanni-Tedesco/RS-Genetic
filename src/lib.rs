@@ -1,9 +1,9 @@
 extern crate bit_vec;
 
-mod genetic;
-mod algorithm;
-mod distributions;
-mod abstractions;
+pub mod genetic;
+pub mod algorithm;
+pub mod distributions;
+pub mod abstractions;
 
 mod samplefitness;
 
