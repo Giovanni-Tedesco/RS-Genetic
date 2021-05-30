@@ -45,7 +45,7 @@ impl Genetic for GraphRepresentation {
         GraphRepresentation{x: 0.2}
     }
 
-    fn mutate(&self, other: &Self, params: &AlgorithmParams) -> (Self, Self) where Self: Sized {
+    fn mutate_step(&self, other: &Self, params: &AlgorithmParams) -> (Self, Self) where Self: Sized {
 
         let (child_1, child_2 )= self.cross_over(other, params.co_factor);
 

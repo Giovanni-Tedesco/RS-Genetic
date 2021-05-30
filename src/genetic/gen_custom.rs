@@ -12,7 +12,5 @@ pub trait GeneticCustom<Chromosome> {
 
     fn from_gene(chromosome: &Chromosome) -> Self;
 
-    fn generate_random() -> Self;
-
-    fn mutate(&self, other: &Self, params: &AlgorithmParams) -> (Self, Self) where Self: Sized;
+    fn mutate_step(&self, other: &Self, params: &AlgorithmParams) -> (Self, Self) where Self: Sized;
 }

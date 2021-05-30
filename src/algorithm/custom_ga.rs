@@ -9,6 +9,7 @@ use std::rc::Rc;
 // use rand::Rng;
 use rand::distributions::{Distribution};
 
+use crate::AlgorithmParams;
 use crate::distributions::standard_weighted::StandardWeighted;
 use crate::{abstractions::CustomDistribution};
 // use crate::utils::BoltzmannParams;
@@ -17,31 +18,21 @@ use crate::distributions::boltzmann::Boltzmann;
 
 
 use super::super::Genetic;
+use crate::GeneticCustom;
 
 
 pub type GenHash<T> = HashMap<Rc<T>, f64>;
 
-pub struct AlgorithmParams 
-{
-    pub rounds: usize,
-    // descendents_number: u64,
-    pub max_popuation: u64,
-    pub mutation_rate: f64, 
-    pub co_factor: f64, 
-    pub elitism: usize
-}
-
-
 
 // TODO: Implement elitism
-pub fn genetic_algorithm<T>(
+pub fn genetic_algorithm<T, Chromosome>(
     initial_population: &Vec<Rc<T>>,
     params: &AlgorithmParams,    
     fitness: &Box<dyn Fn(&T) -> f64>,
     cache: &mut GenHash<T>
 ) -> Vec<Rc<T>> 
 where
-T: Genetic + Copy + Eq + Hash
+T: GeneticCustom<Chromosome> + Copy + Eq + Hash
 {
     /*
     Hash with respect to ds.
@@ -64,7 +55,7 @@ T: Genetic + Copy + Eq + Hash
 
     let mut population = if initial_population.is_empty() {
         let mut x: Vec<Rc<T>> = Vec::new();
-        x.push(Rc::new(Genetic::generate_random()));
+        x.push(Rc::new(GeneticCustom::generate_random()));
         x
     } else {
         initial_population.clone()
@@ -118,3 +109,4 @@ T: Genetic + Copy + Eq + Hash
     return population;
 
 }
+

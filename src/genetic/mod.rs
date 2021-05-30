@@ -41,7 +41,7 @@ pub trait Genetic {
     }
 
 
-    fn mutate(&self, other: &Self, params: &AlgorithmParams) -> (Self, Self) where Self: Sized; 
+    fn mutate_step(&self, other: &Self, params: &AlgorithmParams) -> (Self, Self) where Self: Sized; 
 
     /// Crossover
     /// Gene 1 and Gene 2 assumed to be the same length
