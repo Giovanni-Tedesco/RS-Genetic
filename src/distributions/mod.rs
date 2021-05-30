@@ -1,2 +1,2 @@
-pub(crate) mod boltzmann;
-pub(crate) mod standard_weighted;
+pub mod boltzmann;
+pub mod standard_weighted;
