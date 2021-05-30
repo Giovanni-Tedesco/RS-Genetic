@@ -21,7 +21,7 @@ pub struct Boltzmann {
 
 impl<T> CustomDistribution<T> for Boltzmann 
 where
-    T: Hash + Eq + Clone + Copy
+    T: Hash + Eq + Clone 
 
 {
 
