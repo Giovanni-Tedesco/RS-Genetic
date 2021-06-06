@@ -25,14 +25,14 @@ pub type GenHash<T> = HashMap<Rc<T>, f64>;
 
 
 // TODO: Implement elitism
-pub fn genetic_algorithm<T, Chromosome>(
+pub fn genetic_algorithm<T>(
     initial_population: &Vec<Rc<T>>,
     params: &AlgorithmParams,    
     fitness: &Box<dyn Fn(&T) -> f64>,
     cache: &mut GenHash<T>
 ) -> Vec<Rc<T>> 
 where
-T: GeneticCustom<Chromosome> + Copy + Eq + Hash
+T: GeneticCustom + Copy + Eq + Hash
 {
     /*
     Hash with respect to ds.

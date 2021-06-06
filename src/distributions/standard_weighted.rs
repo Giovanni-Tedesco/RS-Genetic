@@ -29,6 +29,7 @@ where
 
     fn new(&self, population: &Vec<std::rc::Rc<T>>, fitness: &FitFunc<T>
             , cache: &mut GenHash<T>) -> Self {
+                
         let dist = WeightedIndex::new(
             population.into_iter()
             .map(|item| StandardWeighted::calc_fitness(item, fitness, cache))
